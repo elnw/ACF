@@ -1,0 +1,21 @@
+schema: spec-driven
+
+# Project context (optional)
+# This is shown to AI when creating artifacts.
+# Add your tech stack, conventions, style guides, domain knowledge, etc.
+# Example:
+context: |
+  Tech stack: Python, C++.
+
+  Domain: IoT Publisher-Subcriber application. It contains both the logic of the microcontroller and the logic for the event publisher.
+
+  Architecture: Publisher-subscriber. The ESP32 folder contains the boilerplate code for the ESP32 microcontroller. 
+  The Producers folder contains all the python scripts that will be used to produce events to the MQTT broker.
+  The Consumers folder contains all the python scripts that will be used to consume events from the MQTT broker.
+
+rules:
+  proposal:
+    - Keep proposals under 500 words
+    - Always include a "Non-goals" section
+  tasks:
+    - Break tasks into chunks of max 2 hours

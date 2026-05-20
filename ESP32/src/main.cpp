@@ -2,17 +2,10 @@
 #include <WiFi.h>
 #include <ESP32Servo.h>
 #include <PubSubClient.h>
+#include "secrets.h"
 
 // --- CONFIGURACIÓN WI-FI ---
-const char* ssid = "GIAnCARLO";     // Reemplaza con tu Wi-Fi
-const char* password = "ij2dMBR1";    // Reemplaza con tu contraseña
 const int wifiRetryAttempts = 20;
-
-// --- CONFIGURACIÓN MQTT ---
-const char* mqtt_server = "broker.hivemq.com";
-const int mqtt_port = 1883;
-// Tópico único (cambia "mi_gato_123" por algo único para que nadie interfiera)
-const char* topic_sub = "alimentador/levi_iq2230/orden";
 
 // --- CONFIGURACIÓN HARDWARE ---
 Servo miServo; 
@@ -42,7 +35,6 @@ void setup() {
     ESP32PWM::allocateTimer(1);
     miServo.setPeriodHertz(50);
     miServo.attach(pinServo, 500, 2400);
-    
     miServo.write(0); // Asegurar posición cerrado al arrancar
     Serial.println("\n[SISTEMA] Todo listo y compuerta cerrada.");
 }
@@ -97,7 +89,7 @@ void dispensarComida() {
     Serial.println("\n[MOTOR] Dispensando comida... Girando al agujero.");
     miServo.write(posicionAbierto);
     
-    delay(800); // Tiempo de caída de croquetas
+    delay(1200); // Tiempo de caída de croquetas
     
     Serial.println("[MOTOR] Cerrando compuerta. Regresando a posición original.");
     miServo.write(posicionCerrado);
@@ -107,9 +99,9 @@ void conectarMQTT() {
     while (!client.connected()) {
         Serial.print("[MQTT] Intentando conexión al broker...");
         // Creamos un ID de cliente único basado en el tiempo
-        String clientId = "ESP32Client-" + String(random(0, 9999));
+        char* clientId = "FeederDevice";
         
-        if (client.connect(clientId.c_str())) {
+        if (client.connect(clientId, mqtt_user, mqtt_pass)) {
             Serial.println(" ¡Conectado!");
             // Nos suscribimos al tópico para escuchar órdenes
             client.subscribe(topic_sub);

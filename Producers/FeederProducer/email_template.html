@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>IoT Event Publish Execution Report</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+        }
+
+        .header {
+            padding: 32px 24px;
+            text-align: center;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #ffffff;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .content {
+            padding: 32px 24px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 9999px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 24px;
+        }
+
+        .status-success {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        .status-failure {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        .info-grid {
+            border-top: 1px solid #f1f5f9;
+            border-bottom: 1px solid #f1f5f9;
+            padding: 20px 0;
+            margin: 20px 0;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-label {
+            font-weight: 500;
+            color: #64748b;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .footer {
+            background-color: #f8fafc;
+            padding: 24px;
+            text-align: center;
+            font-size: 12px;
+            color: #94a3b8;
+            border-top: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Levi Feeder Execution Report</h1>
+        </div>
+        <div class="content">
+            <div class="status-badge {{status_class}}">
+                {{status}}
+            </div>
+            <p style="font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
+                The IoT MQTT event publisher script has finished running. Please see the execution details below:
+            </p>
+            <div class="info-grid">
+                <div class="info-row">
+                    <span class="info-label">Publisher Task:</span>
+                    <span class="info-value">Publish Event '1'</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Timestamp:</span>
+                    <span class="info-value">{{timestamp}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Broker Host:</span>
+                    <span class="info-value">{{broker_host}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Topic:</span>
+                    <span class="info-value">{{broker_topic}}</span>
+                </div>
+            </div>
+            <div
+                style="background-color: #f1f5f9; border-left: 4px solid {{status_color}}; padding: 16px; border-radius: 4px; font-family: monospace; font-size: 13px; color: #334155; word-break: break-all;">
+                <strong>Details:</strong><br>{{details}}
+            </div>
+        </div>
+        <div class="footer">
+            This is an automated system notification from the ACF IoT Platform.
+        </div>
+    </div>
+</body>
+
+</html>
